@@ -6,3 +6,4 @@ python-dotenv
 fastapi
 uvicorn
 livekit-plugins-silero
+google-generativeai

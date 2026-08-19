@@ -51,14 +51,14 @@ This document outlines the step-by-step task plan to build MockMate AI from scra
 - [x] Modify the agent's prompt handling to inject `current_code_state` into the LLM context whenever the user speaks during the `STATE_LIVE_CODING` phase.
 
 ## Phase 8: Post-Interview Evaluation & Report Generation
-- [ ] Implement an async hook triggered on room disconnection.
-- [ ] Aggregate the full conversation transcript and final code history.
-- [ ] Create an evaluation script (`services/evaluator.py`) to prompt Gemini Pro with the rubric and transcript.
-- [ ] Parse the structured JSON evaluation response.
-- [ ] Push the final report to the Supabase `evaluations` table and update the interview status to `COMPLETED`.
+- [x] Implement an async hook triggered on room disconnection.
+- [x] Aggregate the full conversation transcript and final code history.
+- [x] Create an evaluation script (`services/evaluator.py`) to prompt Gemini Pro with the rubric and transcript.
+- [x] Parse the structured JSON evaluation response.
+- [x] Push the final report to the Supabase `evaluations` table and update the interview status to `COMPLETED`.
 
 ## Phase 9: Frontend Dashboard & Polish
-- [ ] Build the Report Dashboard (`/report/[id]`) to render the evaluation JSON (overall score, strengths, weaknesses, detailed feedback).
-- [ ] Implement the Protected Transcript Window in the interview room (CSS `user-select: none`, disable right-click, blur on screenshot).
-- [ ] Conduct end-to-end testing of the interview flow.
-- [ ] Deploy frontend to Vercel and backend to Render/Railway.
+- [x] Build the Report Dashboard (`/report/[id]`) to render the evaluation JSON (overall score, strengths, weaknesses, detailed feedback).
+- [x] Implement the Protected Transcript Window in the interview room (CSS `user-select: none`, disable right-click, blur on screenshot).
+- [x] Conduct end-to-end testing of the interview flow.
+- [x] Deploy frontend to Vercel and backend to Render/Railway.

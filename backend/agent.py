@@ -6,6 +6,7 @@ from livekit.agents import llm
 from livekit.plugins import deepgram, google, silero
 from livekit.agents.pipeline import VoicePipelineAgent
 from db_client import fetch_interview_context, update_interview_status
+from services.evaluator import generate_report
 
 logger = logging.getLogger("MockMateAgent")
 
@@ -97,4 +98,15 @@ CRITICAL RULES:
     def on_disconnected(self):
         logger.info(f"Room disconnected for {self.interview_id}. Moving to evaluation phase.")
         update_interview_status(self.interview_id, "COMPLETED")
+        
         # Trigger async evaluation logic here (Phase 8)
+        if self.agent and self.agent.chat_ctx:
+            transcript = [{"role": msg.role, "content": msg.content} for msg in self.agent.chat_ctx.messages]
+            # Run the blocking evaluator in a background thread
+            asyncio.create_task(asyncio.to_thread(
+                generate_report,
+                self.interview_id,
+                self.context,
+                self.current_code_state,
+                transcript
+            ))
