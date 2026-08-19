@@ -27,9 +27,9 @@ This document outlines the step-by-step task plan to build MockMate AI from scra
 - [x] Integrate `@livekit/components-react` to manage the audio and data channels.
 
 ## Phase 5: Real-Time Code Editor integration
-- [ ] Integrate `@monaco-editor/react` in the Interview Room.
-- [ ] Implement logic to dynamically restrict programming languages based on the parsed Job Description.
-- [ ] Implement the LiveKit Data Channel (`code_sync` topic) to broadcast debounced editor state payloads to the backend.
+- [x] Integrate `@monaco-editor/react` in the Interview Room.
+- [x] Implement logic to dynamically restrict programming languages based on the parsed Job Description.
+- [x] Implement the LiveKit Data Channel (`code_sync` topic) to broadcast debounced editor state payloads to the backend.
 
 ## Phase 6: AI Voice Agent Backend (Python)
 - [ ] Setup the entrypoint (`main.py`) for the LiveKit agent worker.

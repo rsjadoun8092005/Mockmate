@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation'
 import { LiveKitRoom, RoomAudioRenderer, useConnectionState } from '@livekit/components-react'
 import '@livekit/components-styles'
 import { Loader2 } from 'lucide-react'
+import CodeEditor from '@/components/CodeEditor'
 
 export default function InterviewRoom() {
   const params = useParams()
@@ -70,8 +71,8 @@ export default function InterviewRoom() {
               Phase 5
             </span>
           </div>
-          <div className="flex-1 bg-[#1e1e1e] rounded-xl border border-slate-800 flex items-center justify-center shadow-2xl">
-            <p className="text-slate-500 font-mono text-sm">Waiting for Monaco Editor integration...</p>
+          <div className="flex-1 rounded-xl shadow-2xl overflow-hidden">
+            <CodeEditor />
           </div>
         </div>
       </div>
