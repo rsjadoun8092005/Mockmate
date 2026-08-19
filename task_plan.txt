@@ -32,23 +32,23 @@ This document outlines the step-by-step task plan to build MockMate AI from scra
 - [x] Implement the LiveKit Data Channel (`code_sync` topic) to broadcast debounced editor state payloads to the backend.
 
 ## Phase 6: AI Voice Agent Backend (Python)
-- [ ] Setup the entrypoint (`main.py`) for the LiveKit agent worker.
-- [ ] Implement agent room connection logic and database client (`db_client.py`) to fetch interview context.
-- [ ] Construct the dynamic System Prompt builder using the fetched Company, JD, and Resume.
-- [ ] Integrate Google Gemini Flash and Deepgram STT/TTS via LiveKit plugins.
-- [ ] Implement the State Machine in `agent.py`:
-  - [ ] STATE_INTRO
-  - [ ] STATE_RESUME_DEEPDIVE
-  - [ ] STATE_TECHNICAL_Q&A
-  - [ ] STATE_LIVE_CODING
-  - [ ] STATE_BEHAVIORAL
-  - [ ] STATE_OUTRO
-- [ ] Tune Voice Activity Detection (VAD) for a longer silence threshold (> 2.5s) and implement explicit turn-taking logic ("Completed" / "Pass").
+- [x] Setup the entrypoint (`main.py`) for the LiveKit agent worker.
+- [x] Implement agent room connection logic and database client (`db_client.py`) to fetch interview context.
+- [x] Construct the dynamic System Prompt builder using the fetched Company, JD, and Resume.
+- [x] Integrate Google Gemini Flash and Deepgram STT/TTS via LiveKit plugins.
+- [x] Implement the State Machine in `agent.py`:
+  - [x] STATE_INTRO
+  - [x] STATE_RESUME_DEEPDIVE
+  - [x] STATE_TECHNICAL_Q&A
+  - [x] STATE_LIVE_CODING
+  - [x] STATE_BEHAVIORAL
+  - [x] STATE_OUTRO
+- [x] Tune Voice Activity Detection (VAD) for a longer silence threshold (> 2.5s) and implement explicit turn-taking logic ("Completed" / "Pass").
 
 ## Phase 7: Backend Data Channel & Code Sync
-- [ ] Implement an event listener in the agent to intercept `code_update` messages on the data channel.
-- [ ] Update the agent's internal `current_code_state` variable.
-- [ ] Modify the agent's prompt handling to inject `current_code_state` into the LLM context whenever the user speaks during the `STATE_LIVE_CODING` phase.
+- [x] Implement an event listener in the agent to intercept `code_update` messages on the data channel.
+- [x] Update the agent's internal `current_code_state` variable.
+- [x] Modify the agent's prompt handling to inject `current_code_state` into the LLM context whenever the user speaks during the `STATE_LIVE_CODING` phase.
 
 ## Phase 8: Post-Interview Evaluation & Report Generation
 - [ ] Implement an async hook triggered on room disconnection.
