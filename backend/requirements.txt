@@ -1,0 +1,7 @@
+livekit-agents
+livekit-plugins-google
+livekit-plugins-deepgram
+supabase
+python-dotenv
+fastapi
+uvicorn

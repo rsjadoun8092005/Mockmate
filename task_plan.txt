@@ -1,0 +1,64 @@
+# MockMate AI - Implementation Task Plan
+
+This document outlines the step-by-step task plan to build MockMate AI from scratch, based on the requirements defined in README.md and SRS.md.
+
+## Phase 1: Project Scaffolding & Initial Setup
+- [x] Initialize the monorepo structure with `frontend/` and `backend/` directories.
+- [x] Initialize Next.js 14 App Router in `frontend/` (`npx create-next-app@latest`).
+- [x] Setup Tailwind CSS and install Shadcn UI components in the frontend.
+- [x] Initialize Python environment in `backend/` with `requirements.txt` (FastAPI, livekit-agents, supabase-py, etc.).
+- [x] Set up Supabase project (Free Tier) and get API keys.
+- [x] Set up LiveKit Cloud project (Free Tier) and get API keys.
+
+## Phase 2: Database & Authentication (Supabase)
+- [x] Define and execute SQL migrations for `users`, `interviews`, and `evaluations` tables.
+- [x] Set up Row Level Security (RLS) policies for all tables (users can only access their own data).
+- [x] Integrate Supabase Authentication in the Next.js app (GitHub/Google OAuth).
+
+## Phase 3: Frontend Pre-Interview Flow
+- [x] Build the Landing Page (`/page.tsx`).
+- [x] Build the Setup Form (`/setup`) to collect Company Name, Job Description (JD), and Resume upload.
+- [x] Implement a Next.js API route (`/api/parse-resume`) to extract text from uploaded PDF resumes.
+- [x] Save the assembled context (Parsed Resume, JD, Company) to the `interviews` table in Supabase with status `PENDING`.
+
+## Phase 4: WebRTC & LiveKit Infrastructure Setup
+- [x] Implement Next.js API route (`/api/token`) to generate LiveKit access tokens for the room using the `interview_id`.
+- [x] Build the Interview Room shell (`/interview/[id]`) with a split-screen layout (Audio Visualizer on left, Editor on right).
+- [x] Integrate `@livekit/components-react` to manage the audio and data channels.
+
+## Phase 5: Real-Time Code Editor integration
+- [ ] Integrate `@monaco-editor/react` in the Interview Room.
+- [ ] Implement logic to dynamically restrict programming languages based on the parsed Job Description.
+- [ ] Implement the LiveKit Data Channel (`code_sync` topic) to broadcast debounced editor state payloads to the backend.
+
+## Phase 6: AI Voice Agent Backend (Python)
+- [ ] Setup the entrypoint (`main.py`) for the LiveKit agent worker.
+- [ ] Implement agent room connection logic and database client (`db_client.py`) to fetch interview context.
+- [ ] Construct the dynamic System Prompt builder using the fetched Company, JD, and Resume.
+- [ ] Integrate Google Gemini Flash and Deepgram STT/TTS via LiveKit plugins.
+- [ ] Implement the State Machine in `agent.py`:
+  - [ ] STATE_INTRO
+  - [ ] STATE_RESUME_DEEPDIVE
+  - [ ] STATE_TECHNICAL_Q&A
+  - [ ] STATE_LIVE_CODING
+  - [ ] STATE_BEHAVIORAL
+  - [ ] STATE_OUTRO
+- [ ] Tune Voice Activity Detection (VAD) for a longer silence threshold (> 2.5s) and implement explicit turn-taking logic ("Completed" / "Pass").
+
+## Phase 7: Backend Data Channel & Code Sync
+- [ ] Implement an event listener in the agent to intercept `code_update` messages on the data channel.
+- [ ] Update the agent's internal `current_code_state` variable.
+- [ ] Modify the agent's prompt handling to inject `current_code_state` into the LLM context whenever the user speaks during the `STATE_LIVE_CODING` phase.
+
+## Phase 8: Post-Interview Evaluation & Report Generation
+- [ ] Implement an async hook triggered on room disconnection.
+- [ ] Aggregate the full conversation transcript and final code history.
+- [ ] Create an evaluation script (`services/evaluator.py`) to prompt Gemini Pro with the rubric and transcript.
+- [ ] Parse the structured JSON evaluation response.
+- [ ] Push the final report to the Supabase `evaluations` table and update the interview status to `COMPLETED`.
+
+## Phase 9: Frontend Dashboard & Polish
+- [ ] Build the Report Dashboard (`/report/[id]`) to render the evaluation JSON (overall score, strengths, weaknesses, detailed feedback).
+- [ ] Implement the Protected Transcript Window in the interview room (CSS `user-select: none`, disable right-click, blur on screenshot).
+- [ ] Conduct end-to-end testing of the interview flow.
+- [ ] Deploy frontend to Vercel and backend to Render/Railway.
